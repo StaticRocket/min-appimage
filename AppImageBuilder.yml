@@ -1,0 +1,58 @@
+version: 1
+
+script: |
+  rm -rf AppDir | true
+  mkdir AppDir
+  tar xvf data.tar.xz -C AppDir
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: org.minbrowser.min
+    name: min
+    icon: min
+    version: 1.26.0
+    exec: opt/Min/min
+    exec_args: $@
+
+  apt:
+    arch: arm64
+    sources:
+      - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports bionic main'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+      - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports bionic universe'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+
+    include:
+      - gconf-service
+      - gconf2
+      - libasound2
+      - libatk-bridge2.0-0
+      - libc6
+      - libcap2
+      - libcups2
+      - libgcrypt20
+      - libgtk2.0-0
+      - libnotify4
+      - libnss3
+      - libsecret-1-0
+      - libudev1
+      - libx11-6
+      - libxcb1
+      - libxss1
+      - libxtst6
+      - python3
+      - xdg-utils
+      - libxcb-shm0
+      - libxcb-render0
+
+    exclude:
+      - humanity-icon-theme
+      - ubuntu-mono
+      - libc6
+
+AppImage:
+  update-information: None
+    #sign-key: None
+  arch: aarch64
